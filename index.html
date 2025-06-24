@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sandra Fitness – Asesoría de Alto Nivel</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/forms@0.3.4/dist/forms.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.2.2/dist/cdn.min.js" defer></script>
+  <style>
+    body {
+      background: linear-gradient(to bottom, #fff1f2, #ffe4e6);
+      color: #1f2937;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .shadow-3d {
+      box-shadow: 0 20px 40px rgba(0,0,0,0.08), 0 10px 20px rgba(0,0,0,0.05);
+    }
+    .gradient-pink {
+      background: linear-gradient(to right, #fbcfe8, #f472b6);
+    }
+    .fade-in {
+      animation: fadeInUp 1s ease-in-out;
+    }
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body class="antialiased">
+  <header class="gradient-pink py-12 shadow-3d text-white text-center fade-in">
+    <h1 class="text-5xl font-bold mb-2">Sandra – Fitness Coach</h1>
+    <p class="text-lg font-light">Bienestar físico, mental y nutricional a tu alcance</p>
+  </header>
+
+  <main class="max-w-4xl mx-auto px-6 py-16 space-y-16">
+    <!-- Introducción -->
+    <section class="text-center fade-in">
+      <h2 class="text-3xl font-semibold mb-4">Reserva tu asesoría personalizada</h2>
+      <p class="text-gray-600 max-w-xl mx-auto">Diseñada para quienes buscan una transformación integral, guiada por una coach de primer nivel. Cuerpo, mente y hábitos saludables en armonía.</p>
+    </section>
+
+    <!-- Formulario -->
+    <section class="bg-white rounded-2xl shadow-3d p-8 fade-in" x-data="{ objetivo: '', plan: '' }">
+      <form id="formulario" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <input name="nombre" placeholder="Nombre completo" class="p-3 border border-pink-200 rounded-xl" required />
+        <input name="email" type="email" placeholder="Correo electrónico" class="p-3 border border-pink-200 rounded-xl" required />
+
+        <div class="col-span-full">
+          <label class="block text-sm font-medium mb-1">Objetivo</label>
+          <select name="objetivo" class="w-full p-3 border border-pink-200 rounded-xl" x-model="objetivo">
+            <option value="Pérdida de peso">Pérdida de peso</option>
+            <option value="Tonificación">Tonificación</option>
+            <option value="Rendimiento">Rendimiento deportivo</option>
+          </select>
+        </div>
+
+        <div class="col-span-full">
+          <label class="block text-sm font-medium mb-1">Plan</label>
+          <select name="plan" class="w-full p-3 border border-pink-200 rounded-xl" x-model="plan">
+            <option value="Asesoría única">Asesoría única (70 €)</option>
+            <option value="Plan mensual">Plan mensual (250 €)</option>
+            <option value="Transformación total">Transformación total (750 €)</option>
+          </select>
+        </div>
+
+        <input name="fecha" type="date" class="p-3 border border-pink-200 rounded-xl" required />
+        <input name="hora" type="time" class="p-3 border border-pink-200 rounded-xl" required />
+      </form>
+    </section>
+
+    <!-- CTA -->
+    <section class="text-center fade-in">
+      <button onclick="enviarASheet()" class="bg-pink-600 text-white font-bold py-3 px-8 rounded-full shadow-3d hover:bg-pink-700 mr-4">Guardar reserva</button>
+      <button onclick="simularChip()" class="gradient-pink text-gray-900 font-bold py-3 px-8 rounded-full shadow-3d hover:opacity-90">Activar chip de asesoría</button>
+    </section>
+  </main>
+
+  <footer class="text-center text-sm text-gray-400 mt-16 py-6 fade-in">
+    &copy; 2025 Sandra Fitness – Diseñado por Business Bots
+  </footer>
+
+  <script>
+    async function enviarASheet() {
+      const data = Object.fromEntries(new FormData(document.getElementById('formulario')));
+      await fetch('URL_DEL_SCRIPT_APPS', {
+        method: 'POST',
+        body: JSON.stringify(data)
+      });
+      alert("Reserva enviada con éxito");
+    }
+
+    function simularChip() {
+      const data = Object.fromEntries(new FormData(document.getElementById('formulario')));
+      alert("Has activado el chip de asesoría para el plan: " + data.plan + " el día " + data.fecha + " a las " + data.hora);
+    }
+  </script>
+</body>
+</html>
