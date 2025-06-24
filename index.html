@@ -88,6 +88,15 @@
         method: 'POST',
         body: JSON.stringify(data)
       });
+      const mensaje = `Nueva reserva:\nNombre: ${data.nombre}\nEmail: ${data.email}\nObjetivo: ${data.objetivo}\nPlan: ${data.plan}\nFecha: ${data.fecha}\nHora: ${data.hora}`;
+
+      // Envío por WhatsApp (simulado como enlace)
+      const telefono = '34633448908';
+      window.open(`https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`, '_blank');
+
+      // Envío por correo
+      window.location.href = `mailto:sandragro0312@gmail.com?subject=Reserva%20Fitness&body=${encodeURIComponent(mensaje)}`;
+
       alert("Reserva enviada con éxito");
     }
 
