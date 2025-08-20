@@ -1,108 +1,2559 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sandra Fitness – Asesoría de Alto Nivel</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/forms@0.3.4/dist/forms.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.2.2/dist/cdn.min.js" defer></script>
-  <style>
-    body {
-      background: linear-gradient(to bottom, #fff1f2, #ffe4e6);
-      color: #1f2937;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    .shadow-3d {
-      box-shadow: 0 20px 40px rgba(0,0,0,0.08), 0 10px 20px rgba(0,0,0,0.05);
-    }
-    .gradient-pink {
-      background: linear-gradient(to right, #fbcfe8, #f472b6);
-    }
-    .fade-in {
-      animation: fadeInUp 1s ease-in-out;
-    }
-    @keyframes fadeInUp {
-      0% { opacity: 0; transform: translateY(20px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sandra Active - Plan Personalizado</title>
+    <meta name="description" content="Descubre tu plan personalizado de fitness y bienestar. Análisis gratuito y seguimiento por WhatsApp.">
+    
+    <!-- SEO y Social -->
+    <meta property="og:title" content="Sandra Active - Plan Personalizado">
+    <meta property="og:description" content="Descubre tu plan personalizado de fitness y bienestar. Análisis gratuito y seguimiento por WhatsApp.">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Critical CSS */
+        :root {
+            --primary: #ec4899;
+            --primary-dark: #db2777;
+            --primary-light: #f9a8d4;
+            --secondary: #fce7f3;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --pink-50: #fdf2f8;
+            --pink-100: #fce7f3;
+            --pink-200: #fbcfe8;
+            --pink-300: #f9a8d4;
+            --pink-400: #f472b6;
+            --pink-500: #ec4899;
+            --pink-600: #db2777;
+            --pink-700: #be185d;
+            --pink-800: #9d174d;
+            --pink-900: #831843;
+            --white: #ffffff;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+            --shadow-sm: 0 1px 2px 0 rgb(236 72 153 / 0.08);
+            --shadow: 0 1px 3px 0 rgb(236 72 153 / 0.12), 0 1px 2px -1px rgb(236 72 153 / 0.12);
+            --shadow-lg: 0 10px 15px -3px rgb(236 72 153 / 0.15), 0 4px 6px -4px rgb(236 72 153 / 0.15);
+            --shadow-xl: 0 20px 25px -5px rgb(236 72 153 / 0.18), 0 8px 10px -6px rgb(236 72 153 / 0.18);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--gray-800);
+            background: linear-gradient(135deg, var(--white) 0%, var(--pink-50) 100%);
+            min-height: 100vh;
+        }
+
+        /* Skip Link */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            background: var(--primary);
+            color: white;
+            padding: 8px;
+            text-decoration: none;
+            border-radius: 4px;
+            z-index: 1000;
+        }
+
+        .skip-link:focus {
+            top: 6px;
+        }
+
+        /* Gate Styles */
+        .gate {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .gate.hidden {
+            opacity: 0;
+            transform: scale(0.95);
+            pointer-events: none;
+        }
+
+        .gate-content {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow-xl);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            animation: gateEntrance 0.6s ease-out;
+        }
+
+        @keyframes gateEntrance {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .gate-logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 2rem;
+            animation: logoFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .gate-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--gray-800);
+        }
+
+        .gate-subtitle {
+            color: var(--gray-600);
+            margin-bottom: 2rem;
+        }
+
+        .gate-input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--pink-200);
+            border-radius: 12px;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .gate-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgb(236 72 153 / 0.1);
+        }
+
+        .gate-button {
+            width: 100%;
+            padding: 1rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gate-button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .gate-button:active {
+            transform: translateY(0);
+        }
+
+        .gate-error {
+            color: var(--error);
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gate-error.show {
+            opacity: 1;
+        }
+
+        /* Main Content */
+        .main-content {
+            opacity: 0;
+            transition: opacity 0.5s ease 0.3s;
+        }
+
+        .main-content.show {
+            opacity: 1;
+        }
+
+        /* Header */
+        .header {
+            position: sticky;
+            top: 0;
+            background: var(--white);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--pink-200);
+            z-index: 100;
+            padding: 1rem 0;
+            box-shadow: var(--shadow);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            animation: logoEntrance 0.6s ease-out;
+        }
+
+        @keyframes logoEntrance {
+            from {
+                opacity: 0;
+                transform: rotate(-180deg) scale(0.5);
+            }
+            to {
+                opacity: 1;
+                transform: rotate(0deg) scale(1);
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 4rem 1rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/><circle cx="10" cy="60" r="0.5" fill="white" opacity="0.1"/><circle cx="90" cy="40" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            pointer-events: none;
+        }
+
+        .hero-container {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, #ffffff, #e0e7ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.125rem, 2.5vw, 1.5rem);
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: white;
+            color: var(--primary);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.125rem;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .hero-cta::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(99, 102, 241, 0.1);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.5s ease;
+        }
+
+        .hero-cta:active::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 5rem 1rem;
+            background: var(--pink-50);
+        }
+
+        .services-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--gray-800);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.25rem;
+            color: var(--gray-600);
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .service-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: var(--shadow-lg);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            perspective: 1000px;
+            height: 300px;
+            position: relative;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .service-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .service-card:hover .service-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .service-card-front,
+        .service-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+        }
+
+        .service-card-back {
+            transform: rotateY(180deg);
+            background: var(--primary);
+            color: white;
+            border-radius: 16px;
+        }
+
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        .service-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--gray-800);
+        }
+
+        .service-description {
+            color: var(--gray-600);
+            line-height: 1.6;
+        }
+
+        .service-card-back .service-title {
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .service-card-back .service-description {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 1.5rem;
+        }
+
+        .service-cta {
+            background: white;
+            color: var(--primary);
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .service-cta:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow);
+        }
+
+        /* Form Section */
+        .form-section {
+            padding: 5rem 1rem;
+            background: var(--white);
+        }
+
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .form-progress {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .form-progress::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--pink-200);
+            z-index: 1;
+        }
+
+        .form-progress-line {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            height: 2px;
+            background: var(--primary);
+            z-index: 2;
+            transition: width 0.5s ease;
+            transform: translateY(-50%);
+        }
+
+        .progress-step {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--pink-200);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: var(--gray-500);
+            position: relative;
+            z-index: 3;
+            transition: all 0.3s ease;
+        }
+
+        .progress-step.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .progress-step.completed {
+            background: var(--success);
+            color: white;
+        }
+
+        .form-step {
+            display: none;
+            animation: stepSlideIn 0.5s ease-out;
+        }
+
+        .form-step.active {
+            display: block;
+        }
+
+        @keyframes stepSlideIn {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .step-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--gray-800);
+            text-align: center;
+        }
+
+        .step-subtitle {
+            font-size: 1.125rem;
+            color: var(--gray-600);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .option-tile {
+            background: white;
+            border: 2px solid var(--pink-200);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .option-tile:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .option-tile.selected {
+            border-color: var(--primary);
+            background: var(--pink-50);
+        }
+
+        .option-tile.selected::before {
+            content: '✓';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 24px;
+            height: 24px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .option-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .option-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--gray-800);
+        }
+
+        .option-description {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+        }
+
+        .form-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 3rem;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: var(--white);
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--pink-50);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        /* Input Fields */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--gray-700);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--pink-200);
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgb(236 72 153 / 0.1);
+        }
+
+        .form-input.error {
+            border-color: var(--error);
+        }
+
+        .error-message {
+            color: var(--error);
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .error-message.show {
+            opacity: 1;
+        }
+
+        /* Summary Section */
+        .summary-section {
+            background: var(--pink-50);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .summary-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--gray-800);
+        }
+
+        .summary-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .summary-chip {
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .chip-remove {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 0.75rem;
+        }
+
+        /* Analysis Section */
+        .analysis-section {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .analysis-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .analysis-content {
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .plan-section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .plan-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Plans Section */
+        .plans-section {
+            padding: 5rem 1rem;
+            background: white;
+        }
+
+        .plans-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .plans-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .plan-card {
+            background: white;
+            border: 2px solid var(--pink-200);
+            border-radius: 24px;
+            padding: 2rem;
+            position: relative;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .plan-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--primary);
+        }
+
+        .plan-card.featured {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, var(--pink-50), var(--pink-100));
+            transform: scale(1.05);
+        }
+
+        .plan-card.featured:hover {
+            transform: scale(1.05) translateY(-8px);
+        }
+
+        .plan-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .plan-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .plan-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .plan-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--gray-800);
+        }
+
+        .plan-subtitle {
+            color: var(--gray-600);
+            font-size: 1rem;
+        }
+
+        .plan-price {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .price-amount {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .price-period {
+            font-size: 1.125rem;
+            color: var(--gray-600);
+            margin-left: 0.25rem;
+        }
+
+        .price-save {
+            background: var(--success);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-top: 0.5rem;
+            display: inline-block;
+        }
+
+        .plan-features {
+            flex-grow: 1;
+            margin-bottom: 2rem;
+        }
+
+        .feature {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            padding: 0.5rem 0;
+        }
+
+        .feature-icon {
+            width: 20px;
+            height: 20px;
+            color: var(--success);
+            flex-shrink: 0;
+            margin-top: 0.125rem;
+        }
+
+        .feature span {
+            color: var(--gray-700);
+            line-height: 1.5;
+        }
+
+        .plan-cta {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 1rem 1.5rem;
+            border-radius: 16px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .plan-cta:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .plan-cta.featured-cta {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            font-size: 1.125rem;
+            padding: 1.25rem 1.5rem;
+        }
+
+        .plan-cta.featured-cta:hover {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+        }
+
+        .plan-cta .whatsapp-icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        .plans-guarantee {
+            margin-top: 4rem;
+            text-align: center;
+        }
+
+        .guarantee-content {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            background: var(--pink-50);
+            padding: 1.5rem 2rem;
+            border-radius: 16px;
+            border: 2px solid var(--pink-200);
+            box-shadow: var(--shadow);
+        }
+
+        .guarantee-icon {
+            font-size: 2rem;
+        }
+
+        .guarantee-text h4 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: var(--gray-800);
+        }
+
+        .guarantee-text p {
+            color: var(--gray-600);
+            margin: 0;
+        }
+
+        /* WhatsApp Button */
+        .whatsapp-btn {
+            background: #25d366;
+            color: white;
+            padding: 1.25rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.125rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 15px -3px rgb(37 211 102 / 0.15), 0 4px 6px -4px rgb(37 211 102 / 0.15);
+            width: 100%;
+            justify-content: center;
+            border: 2px solid var(--pink-200);
+        }
+
+        .whatsapp-btn:hover {
+            background: #128c7e;
+            transform: translateY(-3px);
+            box-shadow: 0 20px 25px -5px rgb(37 211 102 / 0.18), 0 8px 10px -6px rgb(37 211 102 / 0.18);
+            border-color: var(--primary);
+        }
+
+        .whatsapp-icon {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-navigation {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .plans-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .plan-card.featured {
+                transform: none;
+            }
+            
+            .plan-card.featured:hover {
+                transform: translateY(-8px);
+            }
+            
+            .guarantee-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .hero {
+                padding: 3rem 1rem;
+            }
+        }
+
+        /* Accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* Loading States */
+        .loading {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .loading::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: loading 1.5s infinite;
+        }
+
+        @keyframes loading {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        /* ARIA Live Region */
+        .aria-live {
+            position: absolute;
+            left: -10000px;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+        }
+    </style>
 </head>
-<body class="antialiased">
-  <header class="gradient-pink py-12 shadow-3d text-white text-center fade-in">
-    <h1 class="text-5xl font-bold mb-2">Sandra – Fitness Coach</h1>
-    <p class="text-lg font-light">Bienestar físico, mental y nutricional a tu alcance</p>
-  </header>
+<body>
+    <!-- Skip Link -->
+    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+    
+    <!-- ARIA Live Region -->
+    <div aria-live="polite" aria-atomic="true" class="aria-live" id="aria-live"></div>
 
-  <main class="max-w-4xl mx-auto px-6 py-16 space-y-16">
-    <!-- Introducción -->
-    <section class="text-center fade-in">
-      <h2 class="text-3xl font-semibold mb-4">Reserva tu asesoría personalizada</h2>
-      <p class="text-gray-600 max-w-xl mx-auto">Diseñada para quienes buscan una transformación integral, guiada por una coach de primer nivel. Cuerpo, mente y hábitos saludables en armonía.</p>
-    </section>
-
-    <!-- Formulario -->
-    <section class="bg-white rounded-2xl shadow-3d p-8 fade-in" x-data="{ objetivo: '', plan: '' }">
-      <form id="formulario" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <input name="nombre" placeholder="Nombre completo" class="p-3 border border-pink-200 rounded-xl" required />
-        <input name="email" type="email" placeholder="Correo electrónico" class="p-3 border border-pink-200 rounded-xl" required />
-
-        <div class="col-span-full">
-          <label class="block text-sm font-medium mb-1">Objetivo</label>
-          <select name="objetivo" class="w-full p-3 border border-pink-200 rounded-xl" x-model="objetivo">
-            <option value="Pérdida de peso">Pérdida de peso</option>
-            <option value="Tonificación">Tonificación</option>
-            <option value="Rendimiento">Rendimiento deportivo</option>
-          </select>
+    <!-- Gate -->
+    <div class="gate" id="gate" role="dialog" aria-labelledby="gate-title" aria-describedby="gate-subtitle">
+        <div class="gate-content">
+            <div class="gate-logo">
+                <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="45" fill="#6366f1" opacity="0.1"/>
+                    <path d="M30 50L45 65L70 35" stroke="#6366f1" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="50" cy="50" r="35" stroke="#6366f1" stroke-width="3" fill="none"/>
+                </svg>
+            </div>
+            <h1 id="gate-title" class="gate-title">Acceso Exclusivo</h1>
+            <p id="gate-subtitle" class="gate-subtitle">Ingresa la contraseña para continuar</p>
+            <form id="gate-form" novalidate>
+                <input 
+                    type="password" 
+                    id="gate-password" 
+                    class="gate-input" 
+                    placeholder="Contraseña"
+                    aria-describedby="gate-error"
+                    required
+                >
+                <button type="submit" class="gate-button">
+                    <span>Ingresar</span>
+                </button>
+                <div id="gate-error" class="gate-error" role="alert" aria-live="polite"></div>
+            </form>
         </div>
+    </div>
 
-        <div class="col-span-full">
-          <label class="block text-sm font-medium mb-1">Plan</label>
-          <select name="plan" class="w-full p-3 border border-pink-200 rounded-xl" x-model="plan">
-            <option value="Asesoría única">Asesoría única (70 €)</option>
-            <option value="Plan mensual">Plan mensual (250 €)</option>
-            <option value="Transformación total">Transformación total (750 €)</option>
-          </select>
-        </div>
+    <!-- Main Content -->
+    <div class="main-content" id="main-content">
+        <!-- Header -->
+        <header class="header" role="banner">
+            <nav class="nav-container" role="navigation" aria-label="Navegación principal">
+                <a href="#" class="logo" aria-label="Sandra Active - Inicio">
+                    <svg class="logo-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="50" r="45" fill="currentColor" opacity="0.1"/>
+                        <path d="M30 50L45 65L70 35" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="50" cy="50" r="35" stroke="currentColor" stroke-width="3" fill="none"/>
+                    </svg>
+                    <span>Sandra Active</span>
+                </a>
+            </nav>
+        </header>
 
-        <input name="fecha" type="date" class="p-3 border border-pink-200 rounded-xl" required />
-        <input name="hora" type="time" class="p-3 border border-pink-200 rounded-xl" required />
-      </form>
-    </section>
+        <!-- Hero Section -->
+        <section class="hero" role="banner">
+            <div class="hero-container">
+                <h1 class="hero-title">Tu Transformación Personal Comienza Hoy</h1>
+                <p class="hero-subtitle">Descubre tu plan personalizado de fitness y bienestar. Sin presión, con amor propio y resultados reales.</p>
+                <a href="#form" class="hero-cta" aria-describedby="cta-description">
+                    <span>Crear Mi Plan Gratuito</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </a>
+                <div id="cta-description" class="sr-only">Crear un plan personalizado gratuito de fitness y bienestar</div>
+            </div>
+        </section>
 
-    <!-- CTA -->
-    <section class="text-center fade-in space-y-4">
-      <button onclick="enviarASheet()" class="bg-pink-600 text-white font-bold py-3 px-8 rounded-full shadow-3d hover:bg-pink-700">Guardar reserva</button>
-      <button onclick="solicitarReserva()" class="bg-pink-200 text-pink-800 font-bold py-3 px-8 rounded-full shadow-3d hover:bg-pink-300">Solicitar reserva por WhatsApp</button>
-      <a href="mailto:sandragro0312@gmail.com?subject=Solicitud%20Especial" class="block mt-2 text-sm text-pink-700 hover:underline">¿Tienes una solicitud especial? Contáctanos aquí</a>
-    </section>
-  </main>
+        <!-- Services Section -->
+        <section class="services" id="services">
+            <div class="services-container">
+                <h2 class="section-title">¿Cómo Te Ayudamos?</h2>
+                <p class="section-subtitle">Un enfoque integral que respeta tu ritmo y celebra cada pequeño progreso</p>
+                
+                <div class="services-grid">
+                    <div class="service-card" tabindex="0" role="button" aria-label="Más información sobre planes personalizados">
+                        <div class="service-card-inner">
+                            <div class="service-card-front">
+                                <div class="service-icon">💪</div>
+                                <h3 class="service-title">Plan Personalizado</h3>
+                                <p class="service-description">Rutinas adaptadas a tu nivel, tiempo disponible y objetivos reales.</p>
+                            </div>
+                            <div class="service-card-back">
+                                <h3 class="service-title">Tu Plan Único</h3>
+                                <p class="service-description">Analizamos tu situación actual, barreras y preferencias para crear un plan que realmente puedas seguir.</p>
+                                <a href="#form" class="service-cta">Empezar Ahora</a>
+                            </div>
+                        </div>
+                    </div>
 
-  <footer class="text-center text-sm text-gray-400 mt-16 py-6 fade-in">
-    &copy; 2025 Sandra Fitness – Diseñado por Business Bots
-  </footer>
+                    <div class="service-card" tabindex="0" role="button" aria-label="Más información sobre nutrición consciente">
+                        <div class="service-card-inner">
+                            <div class="service-card-front">
+                                <div class="service-icon">🥗</div>
+                                <h3 class="service-title">Nutrición Consciente</h3>
+                                <p class="service-description">Alimentación balanceada sin restricciones extremas ni culpas.</p>
+                            </div>
+                            <div class="service-card-back">
+                                <h3 class="service-title">Come Con Libertad</h3>
+                                <p class="service-description">Aprende a nutrir tu cuerpo respetando tus gustos, intolerancias y estilo de vida.</p>
+                                <a href="#form" class="service-cta">Descubrir Más</a>
+                            </div>
+                        </div>
+                    </div>
 
-  <script>
-    async function enviarASheet() {
-      const data = Object.fromEntries(new FormData(document.getElementById('formulario')));
-      await fetch('URL_DEL_SCRIPT_APPS', {
-        method: 'POST',
-        body: JSON.stringify(data)
-      });
-      alert("Reserva enviada con éxito");
-    }
+                    <div class="service-card" tabindex="0" role="button" aria-label="Más información sobre apoyo emocional">
+                        <div class="service-card-inner">
+                            <div class="service-card-front">
+                                <div class="service-icon">🧠</div>
+                                <h3 class="service-title">Apoyo Emocional</h3>
+                                <p class="service-description">Herramientas para mantener la motivación y superar obstáculos mentales.</p>
+                            </div>
+                            <div class="service-card-back">
+                                <h3 class="service-title">Mente Fuerte</h3>
+                                <p class="service-description">Técnicas de mindfulness, gestión de estrés y construcción de hábitos duraderos.</p>
+                                <a href="#form" class="service-cta">Explorar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    function solicitarReserva() {
-      const data = Object.fromEntries(new FormData(document.getElementById('formulario')));
-      const mensaje = `Reserva Fitness:\nNombre: ${data.nombre}\nObjetivo: ${data.objetivo}\nPlan: ${data.plan}\nFecha: ${data.fecha}\nHora: ${data.hora}`;
-      const telefono = '34633448908';
-      window.open(`https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`, '_blank');
-    }
+        <!-- Plans Section -->
+        <section class="plans-section" id="plans">
+            <div class="plans-container">
+                <h2 class="section-title">Planes Personalizados</h2>
+                <p class="section-subtitle">Elige el plan que mejor se adapte a tus objetivos y estilo de vida</p>
+                
+                <div class="plans-grid">
+                    <!-- Fitness Plan -->
+                    <div class="plan-card" data-plan="fitness">
+                        <div class="plan-header">
+                            <div class="plan-icon">💪</div>
+                            <h3 class="plan-title">Plan Fitness</h3>
+                            <div class="plan-subtitle">Entrenamiento de Fuerza</div>
+                        </div>
+                        
+                        <div class="plan-price">
+                            <span class="price-amount">€89</span>
+                            <span class="price-period">/mes</span>
+                        </div>
+                        
+                        <div class="plan-features">
+                            <div class="feature">
+                                <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 6L9 17l-5-5"/>
+                                </svg>
+                                <span>Rutinas personalizadas de fuerza</span>
+                            </div>
+                            <div class="feature">
+                                <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 6L9 17l-5-5"/>
+                                </svg>
+                                <span>Progresión semanal adaptada</span>
+                            </div>
+                            <div class="feature">
+                                <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 6L9 17l-5-5"/>
+                                </svg>
+                                <span>Videos explicativos de ejercicios</span>
+                            </div>
+                            <div class="feature">
+                                <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 6L9 17l-5-5"/>
+                                </svg>
+                                <span>Seguimiento de progreso</span>
+                            </div>
+                            <div class="feature">
+                                <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 6L9 17l-5-5"/>
+                                </svg>
+                                <span>Soporte por WhatsApp</span>
+                            </div>
+                        </div>
+                        
+                        <button class="plan-cta" onclick="selectPlan('fitness', 'Plan Fitness - €89/mes')">
+                            <svg class="whatsapp-icon" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+                            </svg>
+                            Elegir Plan Fitness
+                        </button>
+                    </div>
 
-    function simularChip() {
-      const data = Object.fromEntries(new FormData(document.getElementById('formulario')));
-      alert("Has activado el chip de asesoría para el plan: " + data.plan + " el día " + data.fecha + " a las " + data.hora);
-    }
-  </script>
-</body>
+                    <!-- Training Plan -->
+                    <div class="plan-card" data-plan="entrenamiento">
+                        <div class="plan-header">
+                            <div class="plan-icon">🏋️</div>
+                            <h3 class="plan-title">Plan Entrenamiento</h3>
+                            <div class="plan-subtitle">Rutinas Completas</div>
+                        </div>
+                        
+                        <div class="plan-price">
+                            <span class="price-amount">€109</span>
+                            <span class="price-period">/mes</span>
+                        </div>
+                        
+                        <div class="plan-features">
+                            <div class="feature">
+                                <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 6L9 17l-5-5"/>
+                                </svg>
+                                <span>Todo del Plan Fitness +</span>
+                            </div>
+                            <div class="feature">
+                                <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 6L9 17l-5-5"/>
+                                </svg>
+                                <span>Rutinas de flexibilidad y movilidad</span>
+                            </div>
+                            <div class="feature">
+                                <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 6L9 17l-5-5"/>
+                                </svg>
+                                <span>Planes de recuperación activa</span>
+                            </div>
+                            <div class="feature">
+                                <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 6L9 17l-5-5"/>
+                                </svg>
+                                <span>Ajustes semanales personalizados</span>
+                            </div>
+                            <div class="feature">
+                                <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 6L9 17l-5-5"/>
+                                </svg>
+                                <span>Consulta mensual por videollamada</span>
+                            </div>
+                        </div>
+                        
+                        <button class="plan-cta" onclick="selectPlan('entrenamiento', 'Plan Entrenamiento - €109/mes')">
+                            <svg class="whatsapp-icon" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+                            </svg>
+                            Elegir Plan Entrenamiento
+                        </button>
+                    </div>
+
+                    <!-- Nutrition Plan -->
+                    <div class="plan-card" data-plan="nutricion">
+                        <div class="plan-header">
+                            <div class="plan-icon">🥗</div>
+                            <h3 class="plan-title">Plan Nutrición</h3>
+                            <div class="plan-subtitle">Alimentación Consciente</div>
+                        </div>
+                        
+                        <div class="plan-price">
+                            <span class="price-amount">€79</span>
+                            <span class="price-period">/mes</span>
+                        </div>
+                        
+                        <div class="plan-features">
+                            <div class="feature">
+                                <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 6L9 17l-5-5"/>
+                                </svg>
+                                <span>Plan nutricional personalizado</span>
+                            </div>
+                            <div class="feature">
+                                <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 6L9 17l-5-5"/>
+                                </svg>
+                                <span>Recetas saludables y fáciles</span>
+                            </div>
+                            <div class="feature">
+                                <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 6L9 17l-5-5"/>
+                                </svg>
+                                <span>Lista de compras semanal</span>
+                            </div>
+                            <div class="feature">
+                                <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 6L9 17l-5-5"/>
+                                </svg>
+                                <span>Educación nutricional</span>
+                            </div>
+                            <div class="feature">
+                                <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 6L9 17l-5-5"/>
+                                </svg>
+                                <span>Ajustes según progreso</span>
+                            </div>
+                        </div>
+                        
+                        <button class="plan-cta" onclick="selectPlan('nutricion', 'Plan Nutrición - €79/mes')">
+                            <svg class="whatsapp-icon" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+                            </svg>
+                            Elegir Plan Nutrición
+                        </button>
+                    </div>
+
+                    <!-- Aerobic Plan -->
+                    <div class="plan-card" data-plan="aerobico">
+                        <div class="plan-header">
+                            <div class="plan-icon">🏃</div>
+                            <h3 class="plan-title">Plan Aeróbico</h3>
+                            <div class="plan-subtitle">Cardio & Resistencia</div>
+                        </div>
+                        
+                        <div class="plan-price">
+                            <span class="price-amount">€69</span>
+                            <span class="price-period">/mes</span>
+                        </div>
+                        
+                        <div class="plan-features">
+                            <div class="feature">
+                                <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 6L9 17l-5-5"/>
+                                </svg>
+                                <span>Rutinas de cardio personalizadas</span>
+                            </div>
+                            <div class="feature">
+                                <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 6L9 17l-5-5"/>
+                                </svg>
+                                <span>Entrenamientos HIIT y LISS</span>
+                            </div>
+                            <div class="feature">
+                                <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 6L9 17l-5-5"/>
+                                </svg>
+                                <span>Planes de running y caminata</span>
+                            </div>
+                            <div class="feature">
+                                <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 6L9 17l-5-5"/>
+                                </svg>
+                                <span>Monitoreo de frecuencia cardíaca</span>
+                            </div>
+                            <div class="feature">
+                                <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 6L9 17l-5-5"/>
+                                </svg>
+                                <span>Progresión en resistencia</span>
+                            </div>
+                        </div>
+                        
+                        <button class="plan-cta" onclick="selectPlan('aerobico', 'Plan Aeróbico - €69/mes')">
+                            <svg class="whatsapp-icon" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+                            </svg>
+                            Elegir Plan Aeróbico
+                        </button>
+                    </div>
+
+                    <!-- All in One Plan - Featured -->
+                    <div class="plan-card featured" data-plan="all-in-one">
+                        <div class="plan-badge">MÁS POPULAR</div>
+                        <div class="plan-header">
+                            <div class="plan-icon">🌟</div>
+                            <h3 class="plan-title">Plan All in One</h3>
+                            <div class="plan-subtitle">Transformación Completa</div>
+                        </div>
+                        
+                        <div class="plan-price">
+                            <span class="price-amount">€179</span>
+                            <span class="price-period">/mes</span>
+                            <div class="price-save">Ahorra €89/mes</div>
+                        </div>
+                        
+                        <div class="plan-features">
+                            <div class="feature">
+                                <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 6L9 17l-5-5"/>
+                                </svg>
+                                <span>TODOS los planes anteriores incluidos</span>
+                            </div>
+                            <div class="feature">
+                                <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 6L9 17l-5-5"/>
+                                </svg>
+                                <span>Coaching personalizado 1:1</span>
+                            </div>
+                            <div class="feature">
+                                <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 6L9 17l-5-5"/>
+                                </svg>
+                                <span>Consultas semanales por videollamada</span>
+                            </div>
+                            <div class="feature">
+                                <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 6L9 17l-5-5"/>
+                                </svg>
+                                <span>Soporte 24/7 por WhatsApp</span>
+                            </div>
+                            <div class="feature">
+                                <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 6L9 17l-5-5"/>
+                                </svg>
+                                <span>Análisis corporal mensual</span>
+                            </div>
+                            <div class="feature">
+                                <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 6L9 17l-5-5"/>
+                                </svg>
+                                <span>Acceso a comunidad privada</span>
+                            </div>
+                        </div>
+                        
+                        <button class="plan-cta featured-cta" onclick="selectPlan('all-in-one', 'Plan All in One - €179/mes')">
+                            <svg class="whatsapp-icon" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+                            </svg>
+                            Elegir Plan Completo
+                        </button>
+                    </div>
+                </div>
+
+                <div class="plans-guarantee">
+                    <div class="guarantee-content">
+                        <div class="guarantee-icon">🛡️</div>
+                        <div class="guarantee-text">
+                            <h4>Garantía de 30 días</h4>
+                            <p>Si no estás completamente satisfecho/a con tu plan, te devolvemos el 100% de tu dinero. Sin preguntas.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Form Section -->
+        <section class="form-section" id="form">
+            <div class="form-container">
+                <h2 class="section-title">Crea Tu Plan Personalizado</h2>
+                <p class="section-subtitle">Responde unas preguntas para recibir tu análisis gratuito</p>
+
+                <!-- Progress Bar -->
+                <div class="form-progress" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="7" aria-label="Progreso del formulario">
+                    <div class="form-progress-line" id="progress-line"></div>
+                    <div class="progress-step active" data-step="1">1</div>
+                    <div class="progress-step" data-step="2">2</div>
+                    <div class="progress-step" data-step="3">3</div>
+                    <div class="progress-step" data-step="4">4</div>
+                    <div class="progress-step" data-step="5">5</div>
+                    <div class="progress-step" data-step="6">6</div>
+                    <div class="progress-step" data-step="7">7</div>
+                </div>
+
+                <form id="multi-step-form" novalidate>
+                    <!-- Step 1: Objetivo -->
+                    <div class="form-step active" data-step="1">
+                        <h3 class="step-title">¿Cuál es tu objetivo principal?</h3>
+                        <p class="step-subtitle">Elige lo que más resuena contigo en este momento</p>
+                        
+                        <div class="options-grid">
+                            <div class="option-tile" data-value="subir-peso" tabindex="0" role="button" aria-pressed="false">
+                                <div class="option-icon">📈</div>
+                                <div class="option-title">Subir de Peso</div>
+                                <div class="option-description">Ganar masa muscular de forma saludable</div>
+                            </div>
+                            <div class="option-tile" data-value="bajar-grasa" tabindex="0" role="button" aria-pressed="false">
+                                <div class="option-icon">🔥</div>
+                                <div class="option-title">Reducir Grasa</div>
+                                <div class="option-description">Perder peso manteniendo músculo</div>
+                            </div>
+                            <div class="option-tile" data-value="tonificar" tabindex="0" role="button" aria-pressed="false">
+                                <div class="option-icon">💎</div>
+                                <div class="option-title">Tonificar</div>
+                                <div class="option-description">Definir y fortalecer músculos</div>
+                            </div>
+                            <div class="option-tile" data-value="ganar-fuerza" tabindex="0" role="button" aria-pressed="false">
+                                <div class="option-icon">⚡</div>
+                                <div class="option-title">Ganar Fuerza</div>
+                                <div class="option-description">Aumentar capacidad física</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Nivel -->
+                    <div class="form-step" data-step="2">
+                        <h3 class="step-title">¿Cuál es tu nivel actual?</h3>
+                        <p class="step-subtitle">Sé honesto/a, no hay respuestas incorrectas</p>
+                        
+                        <div class="options-grid">
+                            <div class="option-tile" data-value="principiante" tabindex="0" role="button" aria-pressed="false">
+                                <div class="option-icon">🌱</div>
+                                <div class="option-title">Principiante</div>
+                                <div class="option-description">Poco o nada de experiencia</div>
+                            </div>
+                            <div class="option-tile" data-value="intermedio" tabindex="0" role="button" aria-pressed="false">
+                                <div class="option-icon">🌿</div>
+                                <div class="option-title">Intermedio</div>
+                                <div class="option-description">Algo de experiencia previa</div>
+                            </div>
+                            <div class="option-tile" data-value="avanzado" tabindex="0" role="button" aria-pressed="false">
+                                <div class="option-icon">🌳</div>
+                                <div class="option-title">Avanzado</div>
+                                <div class="option-description">Experiencia considerable</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Preferencias de Entrenamiento -->
+                    <div class="form-step" data-step="3">
+                        <h3 class="step-title">¿Dónde prefieres entrenar?</h3>
+                        <p class="step-subtitle">Puedes seleccionar múltiples opciones</p>
+                        
+                        <div class="options-grid">
+                            <div class="option-tile" data-value="casa" tabindex="0" role="button" aria-pressed="false">
+                                <div class="option-icon">🏠</div>
+                                <div class="option-title">En Casa</div>
+                                <div class="option-description">Comodidad y flexibilidad</div>
+                            </div>
+                            <div class="option-tile" data-value="gym" tabindex="0" role="button" aria-pressed="false">
+                                <div class="option-icon">🏋️</div>
+                                <div class="option-title">Gimnasio</div>
+                                <div class="option-description">Equipamiento completo</div>
+                            </div>
+                            <div class="option-tile" data-value="mixto" tabindex="0" role="button" aria-pressed="false">
+                                <div class="option-icon">🔄</div>
+                                <div class="option-title">Mixto</div>
+                                <div class="option-description">Combinación de ambos</div>
+                            </div>
+                            <div class="option-tile" data-value="aire-libre" tabindex="0" role="button" aria-pressed="false">
+                                <div class="option-icon">🌳</div>
+                                <div class="option-title">Aire Libre</div>
+                                <div class="option-description">Parques y espacios abiertos</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Tiempo Disponible -->
+                    <div class="form-step" data-step="4">
+                        <h3 class="step-title">¿Cuánto tiempo puedes dedicar?</h3>
+                        <p class="step-subtitle">Sé realista con tu agenda actual</p>
+                        
+                        <div class="options-grid">
+                            <div class="option-tile" data-value="15-30min" tabindex="0" role="button" aria-pressed="false">
+                                <div class="option-icon">⏰</div>
+                                <div class="option-title">15-30 min</div>
+                                <div class="option-description">Sesiones cortas e intensas</div>
+                            </div>
+                            <div class="option-tile" data-value="30-45min" tabindex="0" role="button" aria-pressed="false">
+                                <div class="option-icon">⏱️</div>
+                                <div class="option-title">30-45 min</div>
+                                <div class="option-description">Tiempo moderado</div>
+                            </div>
+                            <div class="option-tile" data-value="45-60min" tabindex="0" role="button" aria-pressed="false">
+                                <div class="option-icon">⏲️</div>
+                                <div class="option-title">45-60 min</div>
+                                <div class="option-description">Sesiones completas</div>
+                            </div>
+                            <div class="option-tile" data-value="60min+" tabindex="0" role="button" aria-pressed="false">
+                                <div class="option-icon">🕐</div>
+                                <div class="option-title">Más de 60 min</div>
+                                <div class="option-description">Tiempo abundante</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 5: Alimentación -->
+                    <div class="form-step" data-step="5">
+                        <h3 class="step-title">¿Cómo es tu alimentación?</h3>
+                        <p class="step-subtitle">Cuéntanos sobre tus preferencias y restricciones</p>
+                        
+                        <div class="options-grid">
+                            <div class="option-tile" data-value="omnivora" tabindex="0" role="button" aria-pressed="false">
+                                <div class="option-icon">🍖</div>
+                                <div class="option-title">Omnívora</div>
+                                <div class="option-description">Como de todo</div>
+                            </div>
+                            <div class="option-tile" data-value="vegetariana" tabindex="0" role="button" aria-pressed="false">
+                                <div class="option-icon">🥬</div>
+                                <div class="option-title">Vegetariana</div>
+                                <div class="option-description">Sin carne ni pescado</div>
+                            </div>
+                            <div class="option-tile" data-value="vegana" tabindex="0" role="button" aria-pressed="false">
+                                <div class="option-icon">🌱</div>
+                                <div class="option-title">Vegana</div>
+                                <div class="option-description">Solo productos vegetales</div>
+                            </div>
+                            <div class="option-tile" data-value="intolerancias" tabindex="0" role="button" aria-pressed="false">
+                                <div class="option-icon">⚠️</div>
+                                <div class="option-title">Con Intolerancias</div>
+                                <div class="option-description">Restricciones específicas</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 6: Barreras -->
+                    <div class="form-step" data-step="6">
+                        <h3 class="step-title">¿Cuáles son tus principales desafíos?</h3>
+                        <p class="step-subtitle">Identifica lo que te ha frenado antes (puedes elegir varias)</p>
+                        
+                        <div class="options-grid">
+                            <div class="option-tile" data-value="falta-tiempo" tabindex="0" role="button" aria-pressed="false">
+                                <div class="option-icon">⏰</div>
+                                <div class="option-title">Falta de Tiempo</div>
+                                <div class="option-description">Agenda muy ocupada</div>
+                            </div>
+                            <div class="option-tile" data-value="falta-constancia" tabindex="0" role="button" aria-pressed="false">
+                                <div class="option-icon">🔄</div>
+                                <div class="option-title">Falta de Constancia</div>
+                                <div class="option-description">Dificultad para mantener hábitos</div>
+                            </div>
+                            <div class="option-tile" data-value="poca-energia" tabindex="0" role="button" aria-pressed="false">
+                                <div class="option-icon">🔋</div>
+                                <div class="option-title">Poca Energía</div>
+                                <div class="option-description">Me siento cansado/a</div>
+                            </div>
+                            <div class="option-tile" data-value="creencias-limitantes" tabindex="0" role="button" aria-pressed="false">
+                                <div class="option-icon">🧠</div>
+                                <div class="option-title">Creencias Limitantes</div>
+                                <div class="option-description">Pensamientos negativos</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 7: Datos de Contacto -->
+                    <div class="form-step" data-step="7">
+                        <h3 class="step-title">¡Casi listo! Datos de contacto</h3>
+                        <p class="step-subtitle">Para enviarte tu plan personalizado</p>
+                        
+                        <div class="form-group">
+                            <label for="nombre" class="form-label">Nombre *</label>
+                            <input type="text" id="nombre" name="nombre" class="form-input" required aria-describedby="nombre-error">
+                            <div id="nombre-error" class="error-message" role="alert"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email *</label>
+                            <input type="email" id="email" name="email" class="form-input" required aria-describedby="email-error">
+                            <div id="email-error" class="error-message" role="alert"></div>
+                            <p style="font-size: 0.875rem; color: var(--gray-600); margin-top: 0.5rem;">
+                                También puedes contactarnos directamente en: 
+                                <a href="mailto:sandractive@gmail.com" style="color: var(--primary); text-decoration: none;">sandractive@gmail.com</a>
+                            </p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="whatsapp" class="form-label">WhatsApp (opcional)</label>
+                            <input type="tel" id="whatsapp" name="whatsapp" class="form-input" placeholder="+34 600 000 000" aria-describedby="whatsapp-error">
+                            <div id="whatsapp-error" class="error-message" role="alert"></div>
+                        </div>
+
+                        <!-- Summary Section -->
+                        <div class="summary-section" id="summary-section" style="display: none;">
+                            <h4 class="summary-title">Resumen de tus respuestas</h4>
+                            <div class="summary-chips" id="summary-chips"></div>
+                        </div>
+
+                        <!-- Analysis Section -->
+                        <div class="analysis-section" id="analysis-section" style="display: none;">
+                            <h4 class="analysis-title">Tu Análisis Personalizado</h4>
+                            <div class="analysis-content" id="analysis-content"></div>
+                            
+                            <div class="plan-section">
+                                <div class="plan-title">🎯 Tu Plan de 7 Días</div>
+                                <div id="plan-content"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Navigation -->
+                    <div class="form-navigation">
+                        <button type="button" id="prev-btn" class="btn btn-secondary" style="display: none;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M19 12H5M12 19l-7-7 7-7"/>
+                            </svg>
+                            Anterior
+                        </button>
+                        <button type="button" id="next-btn" class="btn btn-primary">
+                            Siguiente
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </button>
+                        <button type="submit" id="submit-btn" class="btn btn-primary" style="display: none;">
+                            Generar Mi Plan
+                        </button>
+                        <a href="#" id="whatsapp-btn" class="whatsapp-btn" style="display: none;" target="_blank" rel="noopener noreferrer">
+                            <svg class="whatsapp-icon" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+                            </svg>
+                            Recibir Mi Plan por WhatsApp
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Global variables
+        let currentStep = 1;
+        const totalSteps = 7;
+        const formData = {};
+        const correctPassword = 'sandractive';
+
+        // Initialize app
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeGate();
+            initializeForm();
+            initializeAccessibility();
+        });
+
+        // Gate functionality
+        function initializeGate() {
+            const gateForm = document.getElementById('gate-form');
+            const gatePassword = document.getElementById('gate-password');
+            const gateError = document.getElementById('gate-error');
+            const gate = document.getElementById('gate');
+            const mainContent = document.getElementById('main-content');
+
+            gateForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const password = gatePassword.value.trim();
+                
+                if (password === correctPassword) {
+                    // Success - hide gate and show main content
+                    announceToScreenReader('Acceso concedido. Cargando contenido principal.');
+                    
+                    gate.classList.add('hidden');
+                    setTimeout(() => {
+                        gate.style.display = 'none';
+                        mainContent.classList.add('show');
+                        document.getElementById('main-content').focus();
+                    }, 500);
+                } else {
+                    // Error
+                    gateError.textContent = 'Contraseña incorrecta. Inténtalo de nuevo.';
+                    gateError.classList.add('show');
+                    gatePassword.classList.add('error');
+                    gatePassword.focus();
+                    gatePassword.select();
+                    
+                    announceToScreenReader('Contraseña incorrecta. Inténtalo de nuevo.');
+                    
+                    // Clear error after 3 seconds
+                    setTimeout(() => {
+                        gateError.classList.remove('show');
+                        gatePassword.classList.remove('error');
+                    }, 3000);
+                }
+            });
+
+            // Clear error on input
+            gatePassword.addEventListener('input', function() {
+                gateError.classList.remove('show');
+                gatePassword.classList.remove('error');
+            });
+
+            // Handle Enter key
+            gatePassword.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    gateForm.dispatchEvent(new Event('submit'));
+                }
+            });
+        }
+
+        // Form functionality
+        function initializeForm() {
+            const form = document.getElementById('multi-step-form');
+            const nextBtn = document.getElementById('next-btn');
+            const prevBtn = document.getElementById('prev-btn');
+            const submitBtn = document.getElementById('submit-btn');
+
+            // Option tile selection
+            document.addEventListener('click', function(e) {
+                if (e.target.closest('.option-tile')) {
+                    handleOptionSelection(e.target.closest('.option-tile'));
+                }
+            });
+
+            // Keyboard navigation for option tiles
+            document.addEventListener('keydown', function(e) {
+                if (e.target.classList.contains('option-tile')) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        handleOptionSelection(e.target);
+                    }
+                }
+            });
+
+            // Navigation buttons
+            nextBtn.addEventListener('click', nextStep);
+            prevBtn.addEventListener('click', prevStep);
+            submitBtn.addEventListener('click', generateAnalysis);
+
+            // Form submission
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                if (currentStep === totalSteps) {
+                    generateAnalysis();
+                }
+            });
+
+            updateProgress();
+        }
+
+        function handleOptionSelection(tile) {
+            const step = getCurrentStepElement();
+            const stepNumber = parseInt(step.dataset.step);
+            const value = tile.dataset.value;
+            
+            // Handle multi-select for certain steps
+            const multiSelectSteps = [3, 6]; // Training preferences and barriers
+            
+            if (multiSelectSteps.includes(stepNumber)) {
+                // Multi-select
+                tile.classList.toggle('selected');
+                const isSelected = tile.classList.contains('selected');
+                tile.setAttribute('aria-pressed', isSelected);
+                
+                // Update form data
+                if (!formData[`step${stepNumber}`]) {
+                    formData[`step${stepNumber}`] = [];
+                }
+                
+                if (isSelected) {
+                    if (!formData[`step${stepNumber}`].includes(value)) {
+                        formData[`step${stepNumber}`].push(value);
+                    }
+                } else {
+                    formData[`step${stepNumber}`] = formData[`step${stepNumber}`].filter(v => v !== value);
+                }
+            } else {
+                // Single select
+                const allTiles = step.querySelectorAll('.option-tile');
+                allTiles.forEach(t => {
+                    t.classList.remove('selected');
+                    t.setAttribute('aria-pressed', 'false');
+                });
+                
+                tile.classList.add('selected');
+                tile.setAttribute('aria-pressed', 'true');
+                formData[`step${stepNumber}`] = value;
+            }
+
+            announceToScreenReader(`Opción ${tile.querySelector('.option-title').textContent} ${tile.classList.contains('selected') ? 'seleccionada' : 'deseleccionada'}`);
+        }
+
+        function nextStep() {
+            if (validateCurrentStep()) {
+                if (currentStep < totalSteps) {
+                    currentStep++;
+                    updateStep();
+                    updateProgress();
+                    announceToScreenReader(`Paso ${currentStep} de ${totalSteps}`);
+                }
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                updateStep();
+                updateProgress();
+                announceToScreenReader(`Paso ${currentStep} de ${totalSteps}`);
+            }
+        }
+
+        function validateCurrentStep() {
+            const step = getCurrentStepElement();
+            const stepNumber = parseInt(step.dataset.step);
+            
+            if (stepNumber === 7) {
+                // Validate contact form
+                return validateContactForm();
+            } else {
+                // Validate option selection
+                const hasSelection = formData[`step${stepNumber}`] && 
+                    (Array.isArray(formData[`step${stepNumber}`]) ? 
+                        formData[`step${stepNumber}`].length > 0 : 
+                        formData[`step${stepNumber}`]);
+                
+                if (!hasSelection) {
+                    announceToScreenReader('Por favor, selecciona al menos una opción antes de continuar.');
+                    return false;
+                }
+            }
+            
+            return true;
+        }
+
+        function validateContactForm() {
+            const nombre = document.getElementById('nombre');
+            const email = document.getElementById('email');
+            const whatsapp = document.getElementById('whatsapp');
+            
+            let isValid = true;
+            
+            // Validate name
+            if (!nombre.value.trim()) {
+                showFieldError('nombre', 'El nombre es obligatorio');
+                isValid = false;
+            } else {
+                clearFieldError('nombre');
+                formData.nombre = nombre.value.trim();
+            }
+            
+            // Validate email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!email.value.trim()) {
+                showFieldError('email', 'El email es obligatorio');
+                isValid = false;
+            } else if (!emailRegex.test(email.value.trim())) {
+                showFieldError('email', 'Por favor, ingresa un email válido');
+                isValid = false;
+            } else {
+                clearFieldError('email');
+                formData.email = email.value.trim();
+            }
+            
+            // Validate WhatsApp (optional)
+            if (whatsapp.value.trim()) {
+                const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
+                if (!phoneRegex.test(whatsapp.value.replace(/\s/g, ''))) {
+                    showFieldError('whatsapp', 'Por favor, ingresa un número válido');
+                    isValid = false;
+                } else {
+                    clearFieldError('whatsapp');
+                    formData.whatsapp = whatsapp.value.trim();
+                }
+            } else {
+                clearFieldError('whatsapp');
+            }
+            
+            return isValid;
+        }
+
+        function showFieldError(fieldId, message) {
+            const field = document.getElementById(fieldId);
+            const errorElement = document.getElementById(`${fieldId}-error`);
+            
+            field.classList.add('error');
+            errorElement.textContent = message;
+            errorElement.classList.add('show');
+            
+            announceToScreenReader(message);
+        }
+
+        function clearFieldError(fieldId) {
+            const field = document.getElementById(fieldId);
+            const errorElement = document.getElementById(`${fieldId}-error`);
+            
+            field.classList.remove('error');
+            errorElement.classList.remove('show');
+        }
+
+        function updateStep() {
+            const steps = document.querySelectorAll('.form-step');
+            const nextBtn = document.getElementById('next-btn');
+            const prevBtn = document.getElementById('prev-btn');
+            const submitBtn = document.getElementById('submit-btn');
+            
+            steps.forEach((step, index) => {
+                step.classList.toggle('active', index + 1 === currentStep);
+            });
+            
+            // Update navigation buttons
+            prevBtn.style.display = currentStep > 1 ? 'block' : 'none';
+            
+            if (currentStep === totalSteps) {
+                nextBtn.style.display = 'none';
+                submitBtn.style.display = 'block';
+            } else {
+                nextBtn.style.display = 'block';
+                submitBtn.style.display = 'none';
+            }
+            
+            // Focus management
+            const currentStepElement = getCurrentStepElement();
+            const firstFocusable = currentStepElement.querySelector('input, .option-tile, button');
+            if (firstFocusable) {
+                firstFocusable.focus();
+            }
+        }
+
+        function updateProgress() {
+            const progressSteps = document.querySelectorAll('.progress-step');
+            const progressLine = document.getElementById('progress-line');
+            
+            progressSteps.forEach((step, index) => {
+                const stepNumber = index + 1;
+                step.classList.toggle('active', stepNumber === currentStep);
+                step.classList.toggle('completed', stepNumber < currentStep);
+            });
+            
+            // Update progress line
+            const progressPercentage = ((currentStep - 1) / (totalSteps - 1)) * 100;
+            progressLine.style.width = `${progressPercentage}%`;
+            
+            // Update progress bar ARIA
+            const progressBar = document.querySelector('.form-progress');
+            progressBar.setAttribute('aria-valuenow', currentStep);
+        }
+
+        function getCurrentStepElement() {
+            return document.querySelector(`.form-step[data-step="${currentStep}"]`);
+        }
+
+        function generateAnalysis() {
+            if (!validateCurrentStep()) return;
+            
+            // Show loading state
+            const submitBtn = document.getElementById('submit-btn');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<span class="loading">Generando análisis...</span>';
+            submitBtn.disabled = true;
+            
+            // Generate summary
+            generateSummary();
+            
+            // Generate personalized analysis
+            setTimeout(() => {
+                const analysis = generatePersonalizedAnalysis();
+                const plan = generateWeeklyPlan();
+                
+                document.getElementById('analysis-content').innerHTML = analysis;
+                document.getElementById('plan-content').innerHTML = plan;
+                
+                // Show sections
+                document.getElementById('summary-section').style.display = 'block';
+                document.getElementById('analysis-section').style.display = 'block';
+                
+                // Show WhatsApp button
+                setupWhatsAppButton();
+                
+                // Reset button
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                submitBtn.style.display = 'none';
+                document.getElementById('whatsapp-btn').style.display = 'flex';
+                
+                announceToScreenReader('Análisis personalizado generado. Revisa tu plan y envíalo por WhatsApp.');
+                
+                // Scroll to analysis
+                document.getElementById('analysis-section').scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'start' 
+                });
+            }, 2000);
+        }
+
+        function generateSummary() {
+            const summaryChips = document.getElementById('summary-chips');
+            summaryChips.innerHTML = '';
+            
+            const stepLabels = {
+                step1: 'Objetivo',
+                step2: 'Nivel',
+                step3: 'Entrenamiento',
+                step4: 'Tiempo',
+                step5: 'Alimentación',
+                step6: 'Desafíos'
+            };
+            
+            Object.keys(stepLabels).forEach(stepKey => {
+                if (formData[stepKey]) {
+                    const values = Array.isArray(formData[stepKey]) ? formData[stepKey] : [formData[stepKey]];
+                    values.forEach(value => {
+                        const chip = document.createElement('div');
+                        chip.className = 'summary-chip';
+                        chip.innerHTML = `
+                            <span>${formatValue(value)}</span>
+                            <button class="chip-remove" onclick="removeChip('${stepKey}', '${value}')" aria-label="Eliminar ${formatValue(value)}">×</button>
+                        `;
+                        summaryChips.appendChild(chip);
+                    });
+                }
+            });
+        }
+
+        function formatValue(value) {
+            const valueMap = {
+                'subir-peso': 'Subir peso',
+                'bajar-grasa': 'Reducir grasa',
+                'tonificar': 'Tonificar',
+                'ganar-fuerza': 'Ganar fuerza',
+                'principiante': 'Principiante',
+                'intermedio': 'Intermedio',
+                'avanzado': 'Avanzado',
+                'casa': 'En casa',
+                'gym': 'Gimnasio',
+                'mixto': 'Mixto',
+                'aire-libre': 'Aire libre',
+                '15-30min': '15-30 min',
+                '30-45min': '30-45 min',
+                '45-60min': '45-60 min',
+                '60min+': '60+ min',
+                'omnivora': 'Omnívora',
+                'vegetariana': 'Vegetariana',
+                'vegana': 'Vegana',
+                'intolerancias': 'Con intolerancias',
+                'falta-tiempo': 'Falta de tiempo',
+                'falta-constancia': 'Falta de constancia',
+                'poca-energia': 'Poca energía',
+                'creencias-limitantes': 'Creencias limitantes'
+            };
+            
+            return valueMap[value] || value;
+        }
+
+        function removeChip(stepKey, value) {
+            if (Array.isArray(formData[stepKey])) {
+                formData[stepKey] = formData[stepKey].filter(v => v !== value);
+                if (formData[stepKey].length === 0) {
+                    delete formData[stepKey];
+                }
+            } else {
+                delete formData[stepKey];
+            }
+            
+            generateSummary();
+            announceToScreenReader(`${formatValue(value)} eliminado de la selección`);
+        }
+
+        function generatePersonalizedAnalysis() {
+            const objetivo = formData.step1;
+            const nivel = formData.step2;
+            const barreras = formData.step6 || [];
+            const tiempo = formData.step4;
+            
+            let analysis = `<p>Hola ${formData.nombre}, he analizado tus respuestas y aquí está tu diagnóstico personalizado:</p>`;
+            
+            // Objective-based analysis
+            switch (objetivo) {
+                case 'subir-peso':
+                    analysis += `<p><strong>🎯 Tu objetivo de ganar peso:</strong> Perfecto, vamos a enfocarnos en crear un superávit calórico saludable y rutinas de fuerza que estimulen el crecimiento muscular. Tu cuerpo tiene un potencial increíble.</p>`;
+                    break;
+                case 'bajar-grasa':
+                    analysis += `<p><strong>🎯 Tu objetivo de reducir grasa:</strong> Excelente decisión. Vamos a crear un déficit calórico moderado mientras preservamos tu masa muscular. Recuerda: esto es un proceso de amor propio, no de castigo.</p>`;
+                    break;
+                case 'tonificar':
+                    analysis += `<p><strong>🎯 Tu objetivo de tonificar:</strong> ¡Me encanta! Vamos a combinar entrenamiento de resistencia con una nutrición balanceada para definir y fortalecer tu musculatura. Cada día serás más fuerte.</p>`;
+                    break;
+                case 'ganar-fuerza':
+                    analysis += `<p><strong>🎯 Tu objetivo de ganar fuerza:</strong> Increíble elección. La fuerza no solo transforma tu cuerpo, sino tu confianza. Vamos a progresar de forma inteligente y segura.</p>`;
+                    break;
+            }
+            
+            // Level-based guidance
+            if (nivel === 'principiante') {
+                analysis += `<p><strong>🌱 Como principiante:</strong> Tienes una ventaja enorme - tu cuerpo responderá rápidamente a los estímulos. Vamos a construir bases sólidas con movimientos fundamentales y hábitos sostenibles.</p>`;
+            } else if (nivel === 'intermedio') {
+                analysis += `<p><strong>🌿 Con tu experiencia intermedia:</strong> Ya tienes una base, ahora vamos a optimizar y personalizar. Es momento de afinar la técnica y progresar de forma más estratégica.</p>`;
+            } else {
+                analysis += `<p><strong>🌳 Con tu nivel avanzado:</strong> Tu experiencia es valiosa. Vamos a desafiar tu cuerpo de nuevas formas y romper cualquier meseta que puedas estar experimentando.</p>`;
+            }
+            
+            // Address barriers with empathy
+            if (barreras.length > 0) {
+                analysis += `<p><strong>💪 Sobre tus desafíos:</strong> `;
+                if (barreras.includes('falta-tiempo')) {
+                    analysis += `Entiendo que el tiempo es limitado. Por eso tu plan incluye sesiones eficientes que maximizan resultados en poco tiempo. `;
+                }
+                if (barreras.includes('falta-constancia')) {
+                    analysis += `La constancia se construye con pequeños éxitos diarios. Vamos a crear hábitos tan simples que sea más difícil NO hacerlos. `;
+                }
+                if (barreras.includes('poca-energia')) {
+                    analysis += `La energía se crea con movimiento. Empezaremos suave para que el ejercicio te dé energía, no que te la quite. `;
+                }
+                if (barreras.includes('creencias-limitantes')) {
+                    analysis += `Tus pensamientos son poderosos. Vamos a reemplazar esas creencias limitantes con evidencia de tu progreso real. `;
+                }
+                analysis += `Recuerda: cada obstáculo es una oportunidad de crecimiento.</p>`;
+            }
+            
+            return analysis;
+        }
+
+        function generateWeeklyPlan() {
+            const objetivo = formData.step1;
+            const nivel = formData.step2;
+            const lugar = formData.step3;
+            const tiempo = formData.step4;
+            const alimentacion = formData.step5;
+            
+            let plan = '';
+            
+            // Training plan
+            plan += `<div style="margin-bottom: 1rem;"><strong>🏋️ Entrenamiento:</strong><br>`;
+            
+            if (tiempo === '15-30min') {
+                plan += `• 4 sesiones semanales de 20-25 minutos<br>`;
+                plan += `• Circuitos de alta intensidad<br>`;
+                plan += `• Ejercicios compuestos que trabajen múltiples músculos<br>`;
+            } else if (tiempo === '30-45min') {
+                plan += `• 3-4 sesiones semanales de 35-40 minutos<br>`;
+                plan += `• Combinación de fuerza y cardio<br>`;
+                plan += `• Progresión gradual en intensidad<br>`;
+            } else {
+                plan += `• 3-5 sesiones semanales de 45-60 minutos<br>`;
+                plan += `• Rutina dividida por grupos musculares<br>`;
+                plan += `• Tiempo para calentamiento y estiramiento completo<br>`;
+            }
+            plan += `</div>`;
+            
+            // Nutrition plan
+            plan += `<div style="margin-bottom: 1rem;"><strong>🥗 Nutrición:</strong><br>`;
+            if (objetivo === 'subir-peso') {
+                plan += `• Superávit calórico de 300-500 calorías<br>`;
+                plan += `• 5-6 comidas al día<br>`;
+                plan += `• Enfoque en proteínas de calidad y carbohidratos complejos<br>`;
+            } else if (objetivo === 'bajar-grasa') {
+                plan += `• Déficit calórico moderado de 300-400 calorías<br>`;
+                plan += `• 4-5 comidas balanceadas<br>`;
+                plan += `• Prioridad en proteínas y vegetales<br>`;
+            } else {
+                plan += `• Calorías de mantenimiento con recomposición corporal<br>`;
+                plan += `• Timing de nutrientes alrededor del entrenamiento<br>`;
+                plan += `• Balance entre todos los macronutrientes<br>`;
+            }
+            plan += `</div>`;
+            
+            // Mindset and habits
+            plan += `<div style="margin-bottom: 1rem;"><strong>🧠 Mentalidad y Hábitos:</strong><br>`;
+            plan += `• 5 minutos diarios de meditación o respiración<br>`;
+            plan += `• Diario de progreso (no solo peso, también energía y ánimo)<br>`;
+            plan += `• Celebración de pequeños logros semanales<br>`;
+            plan += `• Recordatorios de autocompasión y paciencia<br>`;
+            plan += `</div>`;
+            
+            // Weekly structure
+            plan += `<div><strong>📅 Estructura Semanal Sugerida:</strong><br>`;
+            plan += `• Lunes: Entrenamiento + planificación de comidas<br>`;
+            plan += `• Martes: Día activo (caminar, yoga, estiramientos)<br>`;
+            plan += `• Miércoles: Entrenamiento + revisión de objetivos<br>`;
+            plan += `• Jueves: Día de autocuidado y recuperación<br>`;
+            plan += `• Viernes: Entrenamiento + preparación del fin de semana<br>`;
+            plan += `• Sábado: Actividad divertida (baile, senderismo, deporte)<br>`;
+            plan += `• Domingo: Descanso activo + reflexión semanal<br>`;
+            plan += `</div>`;
+            
+            return plan;
+        }
+
+        function setupWhatsAppButton() {
+            const whatsappBtn = document.getElementById('whatsapp-btn');
+            const phoneNumber = '34644075065';
+            
+            // Create WhatsApp message
+            let message = `¡Hola! Soy ${formData.nombre} y acabo de completar mi análisis personalizado.\n\n`;
+            message += `📋 MIS DATOS:\n`;
+            message += `• Objetivo: ${formatValue(formData.step1)}\n`;
+            message += `• Nivel: ${formatValue(formData.step2)}\n`;
+            message += `• Tiempo disponible: ${formatValue(formData.step4)}\n`;
+            message += `• Email: ${formData.email}\n`;
+            if (formData.whatsapp) {
+                message += `• WhatsApp: ${formData.whatsapp}\n`;
+            }
+            message += `\n🎯 MI PLAN PERSONALIZADO:\n`;
+            message += `He recibido mi análisis completo y plan de 7 días. `;
+            message += `Me gustaría agendar una consulta para comenzar mi transformación.\n\n`;
+            message += `¡Estoy listo/a para empezar! 💪`;
+            
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+            
+            whatsappBtn.href = whatsappUrl;
+        }
+
+        // Accessibility functions
+        function initializeAccessibility() {
+            // Add focus management
+            document.addEventListener('keydown', function(e) {
+                // Escape key to close modals or return to previous step
+                if (e.key === 'Escape' && currentStep > 1) {
+                    prevStep();
+                }
+                
+                // Arrow keys for option navigation
+                if (e.target.classList.contains('option-tile')) {
+                    const tiles = Array.from(document.querySelectorAll('.form-step.active .option-tile'));
+                    const currentIndex = tiles.indexOf(e.target);
+                    
+                    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+                        e.preventDefault();
+                        const nextIndex = (currentIndex + 1) % tiles.length;
+                        tiles[nextIndex].focus();
+                    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+                        e.preventDefault();
+                        const prevIndex = currentIndex === 0 ? tiles.length - 1 : currentIndex - 1;
+                        tiles[prevIndex].focus();
+                    }
+                }
+            });
+            
+            // Add skip links functionality
+            document.querySelector('.skip-link').addEventListener('click', function(e) {
+                e.preventDefault();
+                document.getElementById('main-content').focus();
+            });
+        }
+
+        function announceToScreenReader(message) {
+            const ariaLive = document.getElementById('aria-live');
+            ariaLive.textContent = message;
+            
+            // Clear after announcement
+            setTimeout(() => {
+                ariaLive.textContent = '';
+            }, 1000);
+        }
+
+        // Service worker registration (basic caching)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js').then(function(registration) {
+                    console.log('SW registered: ', registration);
+                }).catch(function(registrationError) {
+                    console.log('SW registration failed: ', registrationError);
+                });
+            });
+        }
+
+        // Performance monitoring
+        if ('PerformanceObserver' in window) {
+            const observer = new PerformanceObserver((list) => {
+                for (const entry of list.getEntries()) {
+                    if (entry.entryType === 'largest-contentful-paint') {
+                        console.log('LCP:', entry.startTime);
+                    }
+                    if (entry.entryType === 'first-input') {
+                        console.log('FID:', entry.processingStart - entry.startTime);
+                    }
+                    if (entry.entryType === 'layout-shift') {
+                        console.log('CLS:', entry.value);
+                    }
+                }
+            });
+            
+            observer.observe({entryTypes: ['largest-contentful-paint', 'first-input', 'layout-shift']});
+        }
+
+        // Plan selection function
+        function selectPlan(planType, planName) {
+            const phoneNumber = '34644075065';
+            
+            let message = `¡Hola! Estoy interesado/a en el ${planName}.\n\n`;
+            message += `📋 PLAN SELECCIONADO:\n`;
+            message += `${planName}\n\n`;
+            
+            // Add plan-specific details
+            switch(planType) {
+                case 'fitness':
+                    message += `🎯 INCLUYE:\n`;
+                    message += `• Rutinas personalizadas de fuerza\n`;
+                    message += `• Progresión semanal adaptada\n`;
+                    message += `• Videos explicativos de ejercicios\n`;
+                    message += `• Seguimiento de progreso\n`;
+                    message += `• Soporte por WhatsApp\n`;
+                    break;
+                case 'entrenamiento':
+                    message += `🎯 INCLUYE:\n`;
+                    message += `• Todo del Plan Fitness +\n`;
+                    message += `• Rutinas de flexibilidad y movilidad\n`;
+                    message += `• Planes de recuperación activa\n`;
+                    message += `• Ajustes semanales personalizados\n`;
+                    message += `• Consulta mensual por videollamada\n`;
+                    break;
+                case 'nutricion':
+                    message += `🎯 INCLUYE:\n`;
+                    message += `• Plan nutricional personalizado\n`;
+                    message += `• Recetas saludables y fáciles\n`;
+                    message += `• Lista de compras semanal\n`;
+                    message += `• Educación nutricional\n`;
+                    message += `• Ajustes según progreso\n`;
+                    break;
+                case 'aerobico':
+                    message += `🎯 INCLUYE:\n`;
+                    message += `• Rutinas de cardio personalizadas\n`;
+                    message += `• Entrenamientos HIIT y LISS\n`;
+                    message += `• Planes de running y caminata\n`;
+                    message += `• Monitoreo de frecuencia cardíaca\n`;
+                    message += `• Progresión en resistencia\n`;
+                    break;
+                case 'all-in-one':
+                    message += `🎯 INCLUYE:\n`;
+                    message += `• TODOS los planes anteriores incluidos\n`;
+                    message += `• Coaching personalizado 1:1\n`;
+                    message += `• Consultas semanales por videollamada\n`;
+                    message += `• Soporte 24/7 por WhatsApp\n`;
+                    message += `• Análisis corporal mensual\n`;
+                    message += `• Acceso a comunidad privada\n`;
+                    break;
+            }
+            
+            message += `\n💪 Me gustaría obtener más información sobre este plan y cómo empezar mi transformación.\n\n`;
+            message += `¡Estoy listo/a para comenzar!`;
+            
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+            
+            // Open WhatsApp
+            window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+            
+            // Analytics or tracking could go here
+            announceToScreenReader(`Abriendo WhatsApp para consultar sobre ${planName}`);
+        }
+
+        // Smooth scrolling for anchor links
+        document.addEventListener('click', function(e) {
+            if (e.target.matches('a[href^="#"]')) {
+                e.preventDefault();
+                const target = document.querySelector(e.target.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            }
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9722d7f2d62a52be',t:'MTc1NTcwMjg5OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
